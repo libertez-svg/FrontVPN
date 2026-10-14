@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontVPN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-shield">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">FrontVPN</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="dashboard">
+                    <div class="nav-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <span>Подключение</span>
+                </button>
+                <button class="nav-item" data-view="servers">
+                    <div class="nav-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    </div>
+                    <span>Серверы</span>
+                </button>
+                <button class="nav-item" data-view="stats">
+                    <div class="nav-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </div>
+                    <span>Статистика</span>
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <div class="nav-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
+                    <span>Настройки</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">Alex M.</span>
+                        <span class="user-plan">Pro Unlimited</span>
+                    </div>
+                    <svg class="user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <div class="view view-dashboard active" id="view-dashboard">
+                <div class="dashboard-grid">
+                    <div class="connection-panel card">
+                        <div class="conn-status" id="conn-status">
+                            <span class="status-indicator"></span>
+                            <span class="status-label">Отключено</span>
+                        </div>
+                        <div class="connect-wrapper">
+                            <button class="connect-btn" id="connect-btn" aria-label="Подключиться">
+                                <svg class="power-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="conn-timer" id="conn-timer">
+                            <span class="timer-display">00:00:00</span>
+                        </div>
+                        <p class="conn-hint" id="conn-hint">Нажмите для подключения</p>
+                        <button class="server-select-btn card-interactive" id="server-select-btn">
+                            <div class="server-select-flag" id="selected-flag"></div>
+                            <div class="server-select-info">
+                                <span class="server-select-name" id="selected-name">Германия, Франкфурт</span>
+                                <span class="server-select-ping">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <span id="selected-ping">28 ms</span>
+                                </span>
+                            </div>
+                            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                    <div class="side-panels">
+                        <div class="info-card card">
+                            <div class="card-header">
+                                <div class="card-icon card-icon-shield">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                                </div>
+                                <span>IP адрес</span>
+                            </div>
+                            <div class="ip-block">
+                                <span class="ip-value" id="ip-value">192.168.1.***</span>
+                                <div class="ip-status" id="ip-status">
+                                    <div class="ip-dot ip-dot-danger"></div>
+                                    <span id="ip-label">Ваш IP виден</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-card card">
+                            <div class="card-header">
+                                <div class="card-icon card-icon-speed">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                </div>
+                                <span>Скорость</span>
+                            </div>
+                            <div class="speed-row">
+                                <div class="speed-col">
+                                    <div class="speed-icon speed-icon-up">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                                    </div>
+                                    <span class="speed-val" id="upload-speed">0.0</span>
+                                    <span class="speed-unit">Мбит/с</span>
+                                </div>
+                                <div class="speed-sep"></div>
+                                <div class="speed-col">
+                                    <div class="speed-icon speed-icon-down">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                                    </div>
+                                    <span class="speed-val" id="download-speed">0.0</span>
+                                    <span class="speed-unit">Мбит/с</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-card card">
+                            <div class="card-header">
+                                <div class="card-icon card-icon-lock">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                                </div>
+                                <span>Защита</span>
+                            </div>
+                            <div class="features-list">
+                                <div class="feature-row">
+                                    <span>Kill Switch</span>
+                                    <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                                </div>
+                                <div class="feature-row">
+                                    <span>Блок. рекламы</span>
+                                    <label class="toggle"><input type="checkbox"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                                </div>
+                                <div class="feature-row">
+                                    <span>Auto-connect</span>
+                                    <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view view-servers" id="view-servers">
+                <div class="view-top">
+                    <h2 class="view-title">Серверы</h2>
+                    <div class="search-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" placeholder="Поиск сервера..." id="server-search">
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <button class="filter-chip active" data-filter="all">Все</button>
+                    <button class="filter-chip" data-filter="favorites">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        Избранные
+                    </button>
+                    <button class="filter-chip" data-filter="recent">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Недавние
+                    </button>
+                    <button class="filter-chip" data-filter="fastest">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Быстрые
+                    </button>
+                </div>
+                <div class="server-list" id="server-list"></div>
+            </div>
+            <div class="view view-stats" id="view-stats">
+                <div class="view-top">
+                    <h2 class="view-title">Статистика</h2>
+                    <div class="period-select">
+                        <span class="period-opt active">Неделя</span>
+                        <span class="period-opt">Месяц</span>
+                        <span class="period-opt">Год</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stats-chart-card card">
+                        <div class="card-header">
+                            <div class="card-icon card-icon-chart">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            </div>
+                            <span>Трафик</span>
+                        </div>
+                        <div class="chart-area">
+                            <div class="chart-bars" id="chart-bars">
+                                <div class="bar-col"><div class="bar" style="--h:35%"><div class="bar-tooltip">2.4 ГБ</div></div><span>Пн</span></div>
+                                <div class="bar-col"><div class="bar" style="--h:62%"><div class="bar-tooltip">4.8 ГБ</div></div><span>Вт</span></div>
+                                <div class="bar-col"><div class="bar" style="--h:48%"><div class="bar-tooltip">3.5 ГБ</div></div><span>Ср</span></div>
+                                <div class="bar-col"><div class="bar" style="--h:80%"><div class="bar-tooltip">6.2 ГБ</div></div><span>Чт</span></div>
+                                <div class="bar-col"><div class="bar" style="--h:55%"><div class="bar-tooltip">4.1 ГБ</div></div><span>Пт</span></div>
+                                <div class="bar-col"><div class="bar" style="--h:72%"><div class="bar-tooltip">5.6 ГБ</div></div><span>Сб</span></div>
+                                <div class="bar-col"><div class="bar today" style="--h:44%"><div class="bar-tooltip">3.3 ГБ</div></div><span>Вс</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-mini card">
+                        <div class="stat-mini-icon stat-icon-upload">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                        </div>
+                        <div class="stat-mini-data">
+                            <span class="stat-mini-val">24.7 ГБ</span>
+                            <span class="stat-mini-label">Загружено</span>
+                        </div>
+                        <span class="stat-mini-trend trend-up">+12%</span>
+                    </div>
+                    <div class="stat-mini card">
+                        <div class="stat-mini-icon stat-icon-download">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                        </div>
+                        <div class="stat-mini-data">
+                            <span class="stat-mini-val">128.3 ГБ</span>
+                            <span class="stat-mini-label">Скачано</span>
+                        </div>
+                        <span class="stat-mini-trend trend-up">+8%</span>
+                    </div>
+                    <div class="stat-mini card">
+                        <div class="stat-mini-icon stat-icon-time">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div class="stat-mini-data">
+                            <span class="stat-mini-val">47ч 23м</span>
+                            <span class="stat-mini-label">Онлайн</span>
+                        </div>
+                        <span class="stat-mini-trend trend-neutral">~</span>
+                    </div>
+                    <div class="stat-mini card">
+                        <div class="stat-mini-icon stat-icon-shield">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="stat-mini-data">
+                            <span class="stat-mini-val">1,847</span>
+                            <span class="stat-mini-label">Угроз блокировано</span>
+                        </div>
+                        <span class="stat-mini-trend trend-up">+24%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="view view-settings" id="view-settings">
+                <div class="view-top">
+                    <h2 class="view-title">Настройки</h2>
+                </div>
+                <div class="settings-scroll">
+                    <div class="settings-section card">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Подключение
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Протокол</span><span class="setting-desc">Сетевой протокол туннелирования</span></div>
+                            <select class="setting-sel" id="protocol-sel">
+                                <option value="wireguard" selected>WireGuard (Рекомендуется)</option>
+                                <option value="openvpn-udp">OpenVPN (UDP)</option>
+                                <option value="openvpn-tcp">OpenVPN (TCP)</option>
+                                <option value="ikev2">IKEv2/IPSec</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Kill Switch</span><span class="setting-desc">Блокировать трафик при обрыве связи</span></div>
+                            <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Автоподключение</span><span class="setting-desc">Запускать защиту при старте системы</span></div>
+                            <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Раздельное туннелирование</span><span class="setting-desc">Исключить выбранные программы из VPN</span></div>
+                            <label class="toggle"><input type="checkbox"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                    </div>
+                    <div class="settings-section card">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Безопасность
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Пользовательский DNS</span><span class="setting-desc">Защита от утечек и DNS hijack</span></div>
+                            <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Shield (Фильтрация)</span><span class="setting-desc">Блокировка баннеров, трекеров и фишинга</span></div>
+                            <label class="toggle"><input type="checkbox"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Multi-Hop / Double VPN</span><span class="setting-desc">Маршрутизация через два узла</span></div>
+                            <label class="toggle"><input type="checkbox"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                    </div>
+                    <div class="settings-section card">
+                        <div class="section-label">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                            Система
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Язык</span><span class="setting-desc">Язык приложения</span></div>
+                            <select class="setting-sel"><option selected>Русский</option><option>English</option><option>Deutsch</option></select>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Системные уведомления</span><span class="setting-desc">Статус туннеля в трее и шторке</span></div>
+                            <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div><span class="setting-name">Запуск с системой</span><span class="setting-desc">Автозагрузка при входе в систему</span></div>
+                            <label class="toggle"><input type="checkbox" checked><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
